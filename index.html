@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.3.0/dist/leaflet.css" />
+    <link rel="stylesheet" href="leaflet-search-master/leaflet-search-master/src/leaflet-search.css" />
+    <script src="https://unpkg.com/leaflet@1.3.0/dist/leaflet.js"></script>
+    <script src="leaflet-search-master/leaflet-search-master/src/leaflet-search.js"></script>
+    
+    
+    <script type="text/javascript" src="cps_conflic.js"></script>
+    <script type="text/javascript" src="MTY1_zipcodes.js"></script>
+    <script type="text/javascript" src="X_mty_prop.js"></script>
+    <script type="text/javascript" src="X_MTY1_zipcodes.js"></script>
+    <script type="text/javascript" src="colonias_confic.js"></script>
+    
+
+
+    <style>
+
+#map { 
+            width: 100%;
+            height: 900px;
+            box-shadow: 5px 5px 5px #888; 
+        }
+        .legend {
+        background: white;
+        padding: 10px;
+        line-height: 18px;
+        color: #555;
+    }
+    .legend i {
+        width: 18px;
+        height: 18px;
+        float: left;
+        margin-right: 8px;
+        opacity: 0.7;
+    }
+
+    </style>
+
+
+
+</head>
+
+<body>
+    <div id="map"></div>
+
+    <script>
+        var map = L.map("map").setView([25.7268, -100.299], 11);
+        L.tileLayer("http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
+            attribution: 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>',
+            maxZoom: 18
+        }).addTo(map);
+
+
+        //primera capa tematizada: 
+
+
+        function style(feature){
+            return{
+                fillColor: '#e5a015',
+                weight: 1,
+                opacity: 1, 
+                color: 'black',
+                dashArray: '2',
+                fillOpacity: 0.5
+            }
+        }
+
+        function onEachFeature(feature, layer) {
+            if (feature.properties) {
+                layer.bindPopup('<p> Codigo postal: ' + feature.properties.zipcode + '</p><p>station name: ' + feature.properties.station_name + '</p><p>station code: ' + feature.properties.station_code + '</p><p>Localidad: ' + feature.properties.locality + '</p><p>zonificación: ' + feature.properties.zonificacion + '</p>')
+            }
+        }
+
+
+    var layerGroup = L.geoJSON(cpsconflict, {
+        style: style,
+        onEachFeature: onEachFeature
+    });    
+
+    //segunda capa tematizada: 
+
+    function style2(feature){
+            return{
+                fillColor: '#9015e5',
+                weight: 1,
+                opacity: 1, 
+                color: 'black',
+                dashArray: '2',
+                fillOpacity: 0.5
+            }
+        }
+
+        function onEachFeature2(feature, layer) {
+            if (feature.properties) {
+                layer.bindPopup('<p> Codigo postal: ' + feature.properties.zipcode + '</p><p>station name: ' + feature.properties.station_name + '</p><p>station code: ' + feature.properties.station_code + '</p><p>Localidad: ' + feature.properties.locality + '</p><p>zonificación: ' + feature.properties.zonificacion + '</p>')
+            }
+        }
+
+
+    var layerGroup2 = L.geoJSON(mtyzipcodes, {
+        style: style2,
+        onEachFeature: onEachFeature2
+    });  
+
+    //tercera capa tematizada: 
+
+    function style3(feature){
+            return{
+                fillColor: '#e215e5',
+                weight: 1,
+                opacity: 1, 
+                color: 'black',
+                dashArray: '2',
+                fillOpacity: 0.5
+            }
+        }
+
+        function onEachFeature3(feature, layer) {
+            if (feature.properties) {
+                layer.bindPopup('<p> Codigo postal: ' + feature.properties.zipcode + '</p><p>station name: ' + feature.properties.station_name + '</p><p>station code: ' + feature.properties.station_code + '</p><p>Localidad: ' + feature.properties.locality + '</p><p>zonificación: ' + feature.properties.zonificacion + '</p>')
+            }
+        }
+
+
+    var layerGroup3 = L.geoJSON(xmtyprop, {
+        style: style3,
+        onEachFeature: onEachFeature3
+    });
+
+
+    //cuarta capa tematizada: 
+
+    function style4(feature){
+            return{
+                fillColor: '#15e535',
+                weight: 1,
+                opacity: 1, 
+                color: 'black',
+                dashArray: '2',
+                fillOpacity: 0.5
+            }
+        }
+
+        function onEachFeature4(feature, layer) {
+            if (feature.properties) {
+                layer.bindPopup('<p> Codigo postal: ' + feature.properties.zipcode + '</p><p>station name: ' + feature.properties.station_name + '</p><p>station code: ' + feature.properties.station_code + '</p><p>Localidad: ' + feature.properties.locality + '</p><p>zonificación: ' + feature.properties.zonificacion + '</p>')
+            }
+        }
+
+
+    var layerGroup4 = L.geoJSON(xmtyactual, {
+        style: style4,
+        onEachFeature: onEachFeature4
+    });
+    
+
+    //quinta capa tematizada: 
+    function style5(feature){
+            return{
+                fillColor: '#e5153e',
+                weight: 1,
+                opacity: 1, 
+                color: 'black',
+                dashArray: '2',
+                fillOpacity: 0.5
+            }
+        }
+
+        function onEachFeature5(feature, layer) {
+            if (feature.properties) {
+                layer.bindPopup('<p> Codigo postal: ' + feature.properties.POSTALCODE + '</p><p>Nombre del municipio: ' + feature.properties.MUN_NAME + '</p><p>Colonia: ' + feature.properties.SETT_NAME + '</p><p>Tipo de asentamiento: ' + feature.properties.SETT_TYPE + '</p><p>Area: ' + feature.properties.Shape_Area + '</p>')
+            }
+        }
+
+
+    var layerGroup5 = L.geoJSON(colconflic, {
+        style: style5,
+        onEachFeature: onEachFeature5
+    });
+
+
+    ///controlador de capas: 
+
+    var baseMaps = {
+        "Mapa base": map
+    };
+
+    var overlayMaps = {
+        "Códigos postales en conflicto": layerGroup,
+        "Cobertura MTY1 (codigo postal)": layerGroup2,
+        "coberturas propuesta carrier (X_MTY1)": layerGroup3,
+        "coberturas actual carrier (X_MTY1)": layerGroup4,
+        "Colonias conflictivas": layerGroup5
+
+    };
+
+    L.control.layers(baseMaps, overlayMaps, {
+            collapsed: false
+        }).addTo(map);
+
+
+
+
+layerGroup.addTo(map);    
+
+
+
+    </script>
+</body>
+</html>
